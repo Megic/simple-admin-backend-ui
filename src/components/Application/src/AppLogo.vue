@@ -6,7 +6,7 @@
   <div class="anticon" :class="getAppLogoClass" @click="goHome">
     <img src="../../../assets/images/logo.png" />
     <div class="ml-2 truncate md:opacity-100" :class="getTitleClass" v-show="showTitle">
-      {{ title }}
+      {{ title }} <span class="sub-title">{{ shortName }}</span>
     </div>
   </div>
 </template>
@@ -37,7 +37,7 @@
   const { prefixCls } = useDesign('app-logo');
   const { getCollapsedShowTitle } = useMenuSetting();
   const userStore = useUserStore();
-  const { title } = useGlobSetting();
+  const { title,shortName } = useGlobSetting();
   const go = useGo();
 
   const getAppLogoClass = computed(() => [
@@ -58,6 +58,9 @@
   }
 </script>
 <style lang="less" scoped>
+.sub-title{font-size: 12px;display: block;font-family: Arial, Helvetica, sans-serif;color: #aaa}
+
+.ant-layout-sider-children .sub-title{display: inline-block;font-size: 14px;}
   @prefix-cls: ~'@{namespace}-app-logo';
 
   .@{prefix-cls} {
@@ -84,7 +87,7 @@
     }
 
     &__title {
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 700;
       transition: all 0.5s;
       line-height: normal;

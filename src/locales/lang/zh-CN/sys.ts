@@ -66,8 +66,8 @@ export default {
     signUpFormTitle: '注册',
     forgetFormTitle: '重置密码',
 
-    signInTitle: '分布式后台管理系统',
-    signInDesc: '快速搭建强大的分布式系统',
+    signInTitle: '校医一站式工作平台',
+    signInDesc: '更加智能、更加高效',
     policy: '我同意xxx隐私政策',
     scanSign: `扫码后点击"确认"，即可完成登录`,
 

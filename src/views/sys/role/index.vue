@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="p-4">
     <BasicTable @register="registerTable">
       <template #toolbar>
         <a-button type="primary" @click="handleCreate"> {{ t('sys.role.addRole') }} </a-button>

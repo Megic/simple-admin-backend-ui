@@ -38,10 +38,9 @@
       </FormItem>
     </ARow>
 
-    <ARow class="enter-x">
+    <!-- <ARow class="enter-x">
       <ACol :span="12">
         <FormItem>
-          <!-- No logic, you need to deal with it yourself -->
           <Checkbox v-model:checked="rememberMe" size="small">
             {{ t('sys.login.rememberMe') }}
           </Checkbox>
@@ -49,20 +48,19 @@
       </ACol>
       <ACol :span="12">
         <FormItem :style="{ 'text-align': 'right' }">
-          <!-- No logic, you need to deal with it yourself -->
           <Button type="link" size="small" @click="setLoginState(LoginStateEnum.RESET_PASSWORD)">
             {{ t('sys.login.forgetPassword') }}
           </Button>
         </FormItem>
       </ACol>
-    </ARow>
+    </ARow> -->
 
     <FormItem class="enter-x">
       <Button type="primary" size="large" block @click="handleLogin" :loading="loading">
         {{ t('sys.login.loginButton') }}
       </Button>
     </FormItem>
-    <ARow class="enter-x">
+    <!-- <ARow class="enter-x">
       <ACol :md="8" :xs="24">
         <Button block @click="setLoginState(LoginStateEnum.MOBILE)">
           {{ t('sys.login.mobileSignInFormTitle') }}
@@ -78,9 +76,9 @@
           {{ t('sys.login.registerButton') }}
         </Button>
       </ACol>
-    </ARow>
+    </ARow> -->
 
-    <Divider class="enter-x">{{ t('sys.login.otherSignIn') }}</Divider>
+    <!-- <Divider class="enter-x">{{ t('sys.login.otherSignIn') }}</Divider>
 
     <div class="flex justify-evenly enter-x" :class="`${prefixCls}-sign-in-way`">
       <GithubFilled @click="oauthLoginHandler('github')" />
@@ -88,7 +86,7 @@
       <AlipayCircleFilled @click="oauthLoginHandler('alipay')" />
       <GoogleCircleFilled @click="oauthLoginHandler('google')" />
       <TwitterCircleFilled @click="oauthLoginHandler('twitter')" />
-    </div>
+    </div> -->
   </Form>
 </template>
 <script lang="ts" setup>

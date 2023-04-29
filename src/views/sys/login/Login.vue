@@ -85,7 +85,7 @@
       background-color: @dark-bg;
 
       &::before {
-        background-image: url(/@/assets/svg/login-bg-dark.svg);
+        background-image: url("/@/assets/svg/login-bg-dark.svg");
       }
 
       .ant-input,
@@ -93,7 +93,7 @@
         background-color: #232a3b;
       }
 
-      .ant-btn:not(.ant-btn-link):not(.ant-btn-primary) {
+      .ant-btn:not(.ant-btn-link, .ant-btn-primary) {
         border: 1px solid #4a5569;
       }
 
@@ -131,7 +131,7 @@
       width: 100%;
       height: 100%;
       margin-left: -48%;
-      background-image: url(/@/assets/svg/login-bg.svg);
+      background-image: url("/@/assets/svg/login-bg.svg");
       background-position: 100%;
       background-repeat: no-repeat;
       background-size: auto 100%;
@@ -163,7 +163,7 @@
         height: 80px;
 
         &__title {
-          font-size: 24px;
+          font-size: 26px;
           color: #fff;
         }
 

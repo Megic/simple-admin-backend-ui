@@ -23,12 +23,12 @@
           :text="t('layout.header.tooltipLock')"
           icon="ion:lock-closed-outline"
         />
-        <MenuItem
+        <!-- <MenuItem
           key="doc"
           :text="t('layout.header.dropdownItemDoc')"
           icon="ion:document-text-outline"
           v-if="getShowDoc"
-        />
+        /> -->
         <MenuItem
           key="logout"
           :text="t('layout.header.dropdownItemLoginOut')"
