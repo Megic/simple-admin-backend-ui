@@ -90,7 +90,6 @@
   import { useDrawer } from '/@/components/Drawer';
   import FileDrawer from './FileDrawer.vue';
   import { useI18n } from 'vue-i18n';
-  import { useMessage } from '/@/hooks/web/useMessage';
 
   import { columns, searchFormSchema } from './file.data';
   import { deleteFile, downloadFile, getFileList, uploadApi } from '../../api/file/file';
@@ -101,7 +100,6 @@
     setup() {
       const { t } = useI18n();
       const [registerDrawer, { openDrawer }] = useDrawer();
-      const { notification } = useMessage();
       const [registerTable, { reload }] = useTable({
         title: t('fileManager.fileList'),
         api: getFileList,
@@ -143,6 +141,7 @@
       async function handleDownload(record: Recordable) {
         let file = await downloadFile(record.id, 'none');
         let fileType = file.type.split('/')[0];
+        currentFileName.value = record.name + '.' + record.path.split('.')[1];
         if (fileType === 'image') {
           imageVisible.value = true;
           imagePath.value = URL.createObjectURL(file);
@@ -151,7 +150,6 @@
           videoPath.value = URL.createObjectURL(file);
           videoTitle.value = record.name;
         } else {
-          currentFileName.value = record.name + '.' + record.path.split('.')[1];
           const link = document.createElement('a');
           link.href = URL.createObjectURL(file);
           link.download = currentFileName.value;
@@ -197,12 +195,7 @@
       }
 
       async function handleDelete(record: Recordable) {
-        const result = await deleteFile({ id: record.id }, 'modal');
-        notification.success({
-          message: t('common.successful'),
-          description: t(result.msg),
-          duration: 3,
-        });
+        await deleteFile({ id: record.id });
         reload();
       }
 

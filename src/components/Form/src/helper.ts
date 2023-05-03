@@ -1,4 +1,4 @@
-import type { ValidationRule } from 'ant-design-vue/lib/form/Form';
+import type { RuleObject } from 'ant-design-vue/lib/form/interface';
 import type { ComponentType } from './types/index';
 import { useI18n } from '/@/hooks/web/useI18n';
 import { dateUtil } from '/@/utils/dateUtil';
@@ -36,7 +36,7 @@ function genType() {
 }
 
 export function setComponentRuleType(
-  rule: ValidationRule,
+  rule: RuleObject,
   component: ComponentType,
   valueFormat: string,
 ) {
@@ -49,12 +49,12 @@ export function setComponentRuleType(
   }
 }
 
-export function processDateValue(attr: Recordable, component: string) {
+export function processDateValue(attr: Recordable<string>, component: string) {
   const { valueFormat, value } = attr;
   if (valueFormat) {
     attr.value = isObject(value) ? dateUtil(value).format(valueFormat) : value;
   } else if (DATE_TYPE.includes(component) && value) {
-    attr.value = dateUtil(attr.value);
+    attr.value = dateUtil(attr.value).toString();
   }
 }
 
@@ -72,3 +72,16 @@ export function handleInputNumberValue(component?: ComponentType, val?: any) {
 export const dateItemType = genType();
 
 export const defaultValueComponents = ['Input', 'InputPassword', 'InputSearch', 'InputTextArea'];
+
+// TODO 自定义组件封装会出现验证问题，因此这里目前改成手动触发验证
+export const NO_AUTO_LINK_COMPONENTS: ComponentType[] = [
+  'Upload',
+  'ApiTransfer',
+  'ApiTree',
+  'ApiSelect',
+  'ApiTreeSelect',
+  'ApiRadioGroup',
+  'ApiCascader',
+  'AutoComplete',
+  'RadioButtonGroup',
+];

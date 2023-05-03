@@ -15,7 +15,7 @@ enum Api {
  * @description: Get department list
  */
 
-export const getDepartmentList = (params: BaseListReq, mode: ErrorMessageMode = 'message') => {
+export const getDepartmentList = (params: BaseListReq, mode: ErrorMessageMode = 'notice') => {
   return defHttp.post<BaseDataResp<DepartmentListResp>>(
     { url: Api.GetDepartmentList, params },
     { errorMessageMode: mode },
@@ -25,11 +25,12 @@ export const getDepartmentList = (params: BaseListReq, mode: ErrorMessageMode = 
 /**
  *  @description: Create a new department
  */
-export const createDepartment = (params: DepartmentInfo, mode: ErrorMessageMode = 'message') => {
+export const createDepartment = (params: DepartmentInfo, mode: ErrorMessageMode = 'notice') => {
   return defHttp.post<BaseResp>(
     { url: Api.CreateDepartment, params: params },
     {
       errorMessageMode: mode,
+      successMessageMode: mode,
     },
   );
 };
@@ -37,11 +38,12 @@ export const createDepartment = (params: DepartmentInfo, mode: ErrorMessageMode 
 /**
  *  @description: Update the department
  */
-export const updateDepartment = (params: DepartmentInfo, mode: ErrorMessageMode = 'message') => {
+export const updateDepartment = (params: DepartmentInfo, mode: ErrorMessageMode = 'notice') => {
   return defHttp.post<BaseResp>(
     { url: Api.UpdateDepartment, params: params },
     {
       errorMessageMode: mode,
+      successMessageMode: mode,
     },
   );
 };
@@ -49,11 +51,12 @@ export const updateDepartment = (params: DepartmentInfo, mode: ErrorMessageMode 
 /**
  *  @description: Delete departments
  */
-export const deleteDepartment = (params: BaseIDsReq, mode: ErrorMessageMode = 'message') => {
+export const deleteDepartment = (params: BaseIDsReq, mode: ErrorMessageMode = 'notice') => {
   return defHttp.post<BaseResp>(
     { url: Api.DeleteDepartment, params: params },
     {
       errorMessageMode: mode,
+      successMessageMode: mode,
     },
   );
 };
@@ -61,7 +64,7 @@ export const deleteDepartment = (params: BaseIDsReq, mode: ErrorMessageMode = 'm
 /**
  *  @description: Get department By ID
  */
-export const getDepartmentById = (params: BaseIDReq, mode: ErrorMessageMode = 'message') => {
+export const getDepartmentById = (params: BaseIDReq, mode: ErrorMessageMode = 'notice') => {
   return defHttp.post<BaseDataResp<DepartmentInfo>>(
     { url: Api.GetDepartmentById, params: params },
     {

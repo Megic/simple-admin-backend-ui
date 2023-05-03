@@ -67,8 +67,8 @@
     display: flex;
     align-items: center;
     padding-left: 7px;
-    cursor: pointer;
     transition: all 0.2s ease;
+    cursor: pointer;
 
     &.light {
       border-bottom: 1px solid @border-color-base;
@@ -89,7 +89,6 @@
     &__title {
       font-size: 18px;
       font-weight: 700;
-      transition: all 0.5s;
       line-height: normal;
     }
   }

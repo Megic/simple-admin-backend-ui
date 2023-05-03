@@ -40,7 +40,7 @@
               </template>
               <template #actions>
                 <!--              <SettingOutlined key="setting" />-->
-                <EditOutlined key="edit" />
+                <EditOutlined />
                 <Dropdown
                   :trigger="['hover']"
                   :dropMenuList="[
@@ -55,7 +55,7 @@
                   ]"
                   popconfirm
                 >
-                  <EllipsisOutlined key="ellipsis" />
+                  <EllipsisOutlined />
                 </Dropdown>
               </template>
 
@@ -90,6 +90,7 @@
   import { Button } from '/@/components/Button';
   import { isFunction } from '/@/utils/is';
   import { useSlider, grid } from './data';
+
   const ListItem = List.Item;
   const CardMeta = Card.Meta;
   const TypographyText = Typography.Text;

@@ -21,7 +21,7 @@ import { useLocaleStore } from '/@/store/modules/locale';
 
 const globSetting = useGlobSetting();
 const urlPrefix = globSetting.urlPrefix;
-const { createMessage, createErrorModal } = useMessage();
+const { createMessage, createErrorModal, createSuccessModal, notification } = useMessage();
 
 /**
  * @description: 数据处理，方便区分多种处理方式
@@ -53,13 +53,32 @@ const transform: AxiosTransform = {
     }
 
     if (res.data.code === 0 || res.data.code === undefined) {
+      if (options.successMessageMode === 'message') {
+        createMessage.success(res.data.msg);
+      } else if (options.successMessageMode === 'modal') {
+        createSuccessModal({ title: res.data.msg, content: res.data.msg });
+      } else if (options.successMessageMode === 'notice') {
+        notification.success({
+          message: t('common.successful'),
+          description: t(res.data.msg),
+          duration: 3,
+        });
+      }
+
       return res.data;
     } else {
       if (options.errorMessageMode === 'message') {
         createMessage.error(res.data.msg);
-      } else {
+      } else if (options.errorMessageMode === 'modal') {
         createErrorModal({ title: res.data.msg, content: res.data.msg });
+      } else if (options.errorMessageMode === 'notice') {
+        notification.warning({
+          message: t('common.failed'),
+          description: t(res.data.msg),
+          duration: 3,
+        });
       }
+
       return res.data;
     }
   },

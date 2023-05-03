@@ -15,7 +15,7 @@ enum Api {
  * @description: Get member rank list
  */
 
-export const getMemberRankList = (params: BaseListReq, mode: ErrorMessageMode = 'message') => {
+export const getMemberRankList = (params: BaseListReq, mode: ErrorMessageMode = 'notice') => {
   return defHttp.post<BaseDataResp<MemberRankListResp>>(
     { url: Api.GetMemberRankList, params },
     { errorMessageMode: mode },
@@ -25,11 +25,12 @@ export const getMemberRankList = (params: BaseListReq, mode: ErrorMessageMode = 
 /**
  *  @description: Create a new member rank
  */
-export const createMemberRank = (params: MemberRankInfo, mode: ErrorMessageMode = 'message') => {
+export const createMemberRank = (params: MemberRankInfo, mode: ErrorMessageMode = 'notice') => {
   return defHttp.post<BaseResp>(
     { url: Api.CreateMemberRank, params: params },
     {
       errorMessageMode: mode,
+      successMessageMode: mode,
     },
   );
 };
@@ -37,11 +38,12 @@ export const createMemberRank = (params: MemberRankInfo, mode: ErrorMessageMode 
 /**
  *  @description: Update the member rank
  */
-export const updateMemberRank = (params: MemberRankInfo, mode: ErrorMessageMode = 'message') => {
+export const updateMemberRank = (params: MemberRankInfo, mode: ErrorMessageMode = 'notice') => {
   return defHttp.post<BaseResp>(
     { url: Api.UpdateMemberRank, params: params },
     {
       errorMessageMode: mode,
+      successMessageMode: mode,
     },
   );
 };
@@ -49,11 +51,12 @@ export const updateMemberRank = (params: MemberRankInfo, mode: ErrorMessageMode 
 /**
  *  @description: Delete member ranks
  */
-export const deleteMemberRank = (params: BaseIDsReq, mode: ErrorMessageMode = 'message') => {
+export const deleteMemberRank = (params: BaseIDsReq, mode: ErrorMessageMode = 'notice') => {
   return defHttp.post<BaseResp>(
     { url: Api.DeleteMemberRank, params: params },
     {
       errorMessageMode: mode,
+      successMessageMode: mode,
     },
   );
 };
@@ -61,7 +64,7 @@ export const deleteMemberRank = (params: BaseIDsReq, mode: ErrorMessageMode = 'm
 /**
  *  @description: Get member rank By ID
  */
-export const getMemberRankById = (params: BaseIDReq, mode: ErrorMessageMode = 'message') => {
+export const getMemberRankById = (params: BaseIDReq, mode: ErrorMessageMode = 'notice') => {
   return defHttp.post<BaseDataResp<MemberRankInfo>>(
     { url: Api.GetMemberRankById, params: params },
     {

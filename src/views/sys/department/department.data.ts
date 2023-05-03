@@ -1,10 +1,8 @@
-import { BasicColumn } from '/@/components/Table';
-import { FormSchema } from '/@/components/Table';
+import { BasicColumn, FormSchema } from '/@/components/Table';
 import { useI18n } from '/@/hooks/web/useI18n';
 import { formatToDateTime } from '/@/utils/dateUtil';
 import { getDepartmentList, updateDepartment } from '/@/api/sys/department';
 import { Switch } from 'ant-design-vue';
-import { useMessage } from '/@/hooks/web/useMessage';
 import { h } from 'vue';
 
 const { t } = useI18n();
@@ -33,17 +31,12 @@ export const columns: BasicColumn[] = [
         checkedChildren: t('common.on'),
         unCheckedChildren: t('common.off'),
         loading: record.pendingStatus,
-        onChange(checked: boolean) {
-          const { createMessage } = useMessage();
+        onChange(checked, _) {
           record.pendingStatus = true;
           const newStatus = checked ? 1 : 0;
           updateDepartment({ id: record.id, status: newStatus })
-            .then((data) => {
+            .then(() => {
               record.status = newStatus;
-              if (data.code == 0) createMessage.success(t('common.changeStatusSuccess'));
-            })
-            .catch(() => {
-              createMessage.error(t('common.changeStatusFailed'));
             })
             .finally(() => {
               record.pendingStatus = false;

@@ -15,7 +15,7 @@ enum Api {
  * @description: Get api list
  */
 
-export const getApiList = (params: BaseListReq, mode: ErrorMessageMode = 'message') => {
+export const getApiList = (params: BaseListReq, mode: ErrorMessageMode = 'notice') => {
   return defHttp.post<BaseDataResp<ApiListResp>>(
     { url: Api.GetApiList, params },
     { errorMessageMode: mode },
@@ -25,11 +25,12 @@ export const getApiList = (params: BaseListReq, mode: ErrorMessageMode = 'messag
 /**
  *  @description: Create a new api
  */
-export const createApi = (params: ApiInfo, mode: ErrorMessageMode = 'message') => {
+export const createApi = (params: ApiInfo, mode: ErrorMessageMode = 'notice') => {
   return defHttp.post<BaseResp>(
     { url: Api.CreateApi, params: params },
     {
       errorMessageMode: mode,
+      successMessageMode: mode,
     },
   );
 };
@@ -37,11 +38,12 @@ export const createApi = (params: ApiInfo, mode: ErrorMessageMode = 'message') =
 /**
  *  @description: Update the api
  */
-export const updateApi = (params: ApiInfo, mode: ErrorMessageMode = 'message') => {
+export const updateApi = (params: ApiInfo, mode: ErrorMessageMode = 'notice') => {
   return defHttp.post<BaseResp>(
     { url: Api.UpdateApi, params: params },
     {
       errorMessageMode: mode,
+      successMessageMode: mode,
     },
   );
 };
@@ -49,11 +51,12 @@ export const updateApi = (params: ApiInfo, mode: ErrorMessageMode = 'message') =
 /**
  *  @description: Delete apis
  */
-export const deleteApi = (params: BaseIDsReq, mode: ErrorMessageMode = 'message') => {
+export const deleteApi = (params: BaseIDsReq, mode: ErrorMessageMode = 'notice') => {
   return defHttp.post<BaseResp>(
     { url: Api.DeleteApi, params: params },
     {
       errorMessageMode: mode,
+      successMessageMode: mode,
     },
   );
 };
@@ -61,7 +64,7 @@ export const deleteApi = (params: BaseIDsReq, mode: ErrorMessageMode = 'message'
 /**
  *  @description: Get api By ID
  */
-export const getApiById = (params: BaseIDReq, mode: ErrorMessageMode = 'message') => {
+export const getApiById = (params: BaseIDReq, mode: ErrorMessageMode = 'notice') => {
   return defHttp.post<BaseDataResp<ApiInfo>>(
     { url: Api.GetApiById, params: params },
     {

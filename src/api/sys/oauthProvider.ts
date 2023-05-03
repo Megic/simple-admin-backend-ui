@@ -23,7 +23,7 @@ enum Api {
  * @description: Get oauth provider list
  */
 
-export const getOauthProviderList = (params: BaseListReq, mode: ErrorMessageMode = 'message') => {
+export const getOauthProviderList = (params: BaseListReq, mode: ErrorMessageMode = 'notice') => {
   return defHttp.post<BaseDataResp<OauthProviderListResp>>(
     { url: Api.GetOauthProviderList, params },
     { errorMessageMode: mode },
@@ -35,12 +35,13 @@ export const getOauthProviderList = (params: BaseListReq, mode: ErrorMessageMode
  */
 export const createOauthProvider = (
   params: OauthProviderInfo,
-  mode: ErrorMessageMode = 'message',
+  mode: ErrorMessageMode = 'notice',
 ) => {
   return defHttp.post<BaseResp>(
     { url: Api.CreateOauthProvider, params: params },
     {
       errorMessageMode: mode,
+      successMessageMode: mode,
     },
   );
 };
@@ -50,12 +51,13 @@ export const createOauthProvider = (
  */
 export const updateOauthProvider = (
   params: OauthProviderInfo,
-  mode: ErrorMessageMode = 'message',
+  mode: ErrorMessageMode = 'notice',
 ) => {
   return defHttp.post<BaseResp>(
     { url: Api.UpdateOauthProvider, params: params },
     {
       errorMessageMode: mode,
+      successMessageMode: mode,
     },
   );
 };
@@ -63,11 +65,12 @@ export const updateOauthProvider = (
 /**
  *  @description: Delete oauth providers
  */
-export const deleteOauthProvider = (params: BaseIDsReq, mode: ErrorMessageMode = 'message') => {
+export const deleteOauthProvider = (params: BaseIDsReq, mode: ErrorMessageMode = 'notice') => {
   return defHttp.post<BaseResp>(
     { url: Api.DeleteOauthProvider, params: params },
     {
       errorMessageMode: mode,
+      successMessageMode: mode,
     },
   );
 };
@@ -75,7 +78,7 @@ export const deleteOauthProvider = (params: BaseIDsReq, mode: ErrorMessageMode =
 /**
  *  @description: Get oauth provider By ID
  */
-export const getOauthProviderById = (params: BaseIDReq, mode: ErrorMessageMode = 'message') => {
+export const getOauthProviderById = (params: BaseIDReq, mode: ErrorMessageMode = 'notice') => {
   return defHttp.post<BaseDataResp<OauthProviderInfo>>(
     { url: Api.GetOauthProviderById, params: params },
     {

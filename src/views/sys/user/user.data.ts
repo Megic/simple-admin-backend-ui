@@ -1,5 +1,4 @@
-import { BasicColumn } from '/@/components/Table';
-import { FormSchema } from '/@/components/Table';
+import { BasicColumn, FormSchema } from '/@/components/Table';
 import { useI18n } from '/@/hooks/web/useI18n';
 import { formatToDateTime } from '/@/utils/dateUtil';
 import { h } from 'vue';
@@ -41,7 +40,7 @@ export const columns: BasicColumn[] = [
         checkedChildren: t('common.on'),
         unCheckedChildren: t('common.off'),
         loading: record.pendingStatus,
-        onChange(checked: boolean) {
+        onChange(checked, _) {
           const { createMessage } = useMessage();
           if (record.id == 1) {
             createMessage.warn(t('sys.role.adminStatusChangeForbidden'));
@@ -51,12 +50,8 @@ export const columns: BasicColumn[] = [
           record.pendingStatus = true;
           const newStatus = checked ? 1 : 2;
           updateUser({ id: record.id, status: newStatus })
-            .then((data) => {
+            .then(() => {
               record.status = newStatus;
-              if (data.code == 0) createMessage.success(t('common.changeStatusSuccess'));
-            })
-            .catch(() => {
-              createMessage.error(t('common.changeStatusFailed'));
             })
             .finally(() => {
               record.pendingStatus = false;
