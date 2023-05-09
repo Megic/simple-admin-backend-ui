@@ -58,9 +58,9 @@
   }
 </script>
 <style lang="less" scoped>
-.sub-title{font-size: 12px;display: block;font-family: Arial, Helvetica, sans-serif;color: #aaa}
+.sub-title{display: inline-block;color: #aaa;font-family: Arial, Helvetica, sans-serif;font-size: 12px}
 
-.ant-layout-sider-children .sub-title{display: inline-block;font-size: 14px;}
+.ant-layout-sider-children .sub-title{font-size: 14px;}
   @prefix-cls: ~'@{namespace}-app-logo';
 
   .@{prefix-cls} {
