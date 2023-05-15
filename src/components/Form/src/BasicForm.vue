@@ -6,7 +6,7 @@
     :model="formModel"
     @keypress.enter="handleEnterPress"
   >
-    <Row v-bind="getRow">
+    <Row v-bind="getRow" :gutter="8">
       <slot name="formHeader"></slot>
       <template v-for="schema in getSchema" :key="schema.field">
         <FormItem

@@ -24,6 +24,14 @@ export default defineApplicationConfig({
           // only https
           // secure: false
         },
+        '/iu-api': {
+          target: 'http://localhost:7001',
+          changeOrigin: true,
+          ws: true,
+          rewrite: (path) => path.replace(new RegExp(`^/iu-api`), ''),
+          // only https
+          // secure: false
+        },
         '/fms-api': {
           target: 'http://localhost:9102',
           changeOrigin: true,
