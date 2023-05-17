@@ -4,9 +4,10 @@
 -->
 <template>
   <div class="anticon" :class="getAppLogoClass" @click="goHome">
-    <img src="../../../assets/images/logo.png" />
+    <img v-if="whiteLogo" src="../../../assets/images/logo-w.png" />
+    <img v-if="!whiteLogo" src="../../../assets/images/logo.png" />
     <div class="ml-2 truncate md:opacity-100" :class="getTitleClass" v-show="showTitle">
-      {{ title }} <span class="sub-title">{{ shortName }}</span>
+     {{ title }} <span class="sub-title">{{ shortName }}</span>
     </div>
   </div>
 </template>
@@ -24,6 +25,7 @@
      * The theme of the current parent component
      */
     theme: { type: String, validator: (v: string) => ['light', 'dark'].includes(v) },
+    whiteLogo: { type: Boolean, default: false },
     /**
      * Whether to show title
      */

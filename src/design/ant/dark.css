@@ -36,6 +36,7 @@ html {
 @-ms-viewport {
   width: device-width;
 }
+
 body {
   margin: 0;
   color: rgba(255, 255, 255, 0.85);
@@ -45,7 +46,7 @@ body {
     'Noto Color Emoji';
   font-variant: tabular-nums;
   line-height: 1.5715;
-  background-color: #fff;
+  background-color: #f4f7f9;
   font-feature-settings: 'tnum';
 }
 [tabindex='-1']:focus {

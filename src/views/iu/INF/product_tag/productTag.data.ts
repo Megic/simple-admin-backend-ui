@@ -1,50 +1,45 @@
 import { BasicColumn, FormSchema } from '/@/components/Table';
 import { useI18n } from '/@/hooks/web/useI18n';
 import { formatToDateTime } from '/@/utils/dateUtil';
-import { updateWarehouse } from '/@/api/iu/warehouse';
+import { updateProductTag } from '/@/api/iu/productTag';
 import { Switch } from 'ant-design-vue';
 import { h } from 'vue';
 const { t } = useI18n();
 
 export const columns: BasicColumn[] = [
   // {
-  //   title: t('iu.warehouse.createdBy'),
+  //   title: t('iu.productTag.createdBy'),
   //   dataIndex: 'createdBy',
   //   width: 100,
   // },
   // {
-  //   title: t('iu.warehouse.updatedBy'),
+  //   title: t('iu.productTag.updatedBy'),
   //   dataIndex: 'updatedBy',
   //   width: 100,
   // },
   // {
-  //   title: t('iu.warehouse.tenantId'),
+  //   title: t('iu.productTag.tenantId'),
   //   dataIndex: 'tenantId',
   //   width: 100,
   // },
   // {
-  //   title: t('iu.warehouse.appId'),
+  //   title: t('iu.productTag.appId'),
   //   dataIndex: 'appId',
   //   width: 100,
   // },
   {
-    title: t('iu.warehouse.name'),
+    title: t('iu.productTag.name'),
     dataIndex: 'name',
     width: 100,
   },
   {
-    title: t('iu.warehouse.key'),
+    title: t('iu.productTag.key'),
     dataIndex: 'key',
     width: 100,
   },
   {
-    title: t('iu.warehouse.address'),
-    dataIndex: 'address',
-    width: 100,
-  },
-  {
-    title: t('iu.warehouse.description'),
-    dataIndex: 'description',
+    title: t('iu.productTag.remark'),
+    dataIndex: 'remark',
     width: 100,
   },
   {
@@ -63,7 +58,7 @@ export const columns: BasicColumn[] = [
         onChange(checked, _) {
           record.pendingStatus = true;
           const newStatus = checked ? 1 : 2;
-          updateWarehouse({ id: record.id, status: newStatus })
+          updateProductTag({ id: record.id, status: newStatus })
             .then(() => {
               record.status = newStatus;
             })
@@ -87,19 +82,19 @@ export const columns: BasicColumn[] = [
 export const searchFormSchema: FormSchema[] = [
   // {
   //   field: 'tenantId',
-  //   label: t('iu.warehouse.tenantId'),
+  //   label: t('iu.productTag.tenantId'),
   //   component: 'Input',
   //   colProps: { span: 8 },
   // },
   // {
   //   field: 'appId',
-  //   label: t('iu.warehouse.appId'),
+  //   label: t('iu.productTag.appId'),
   //   component: 'Input',
   //   colProps: { span: 8 },
   // },
   {
     field: 'name',
-    label: t('iu.warehouse.name'),
+    label: t('iu.productTag.name'),
     component: 'Input',
     colProps: { span: 8 },
   },
@@ -115,55 +110,49 @@ export const formSchema: FormSchema[] = [
 
   // {
   //   field: 'createdBy',
-  //   label: t('iu.warehouse.createdBy'),
+  //   label: t('iu.productTag.createdBy'),
   //   component: 'InputNumber',
   //   required: true,
   // },
   // {
   //   field: 'updatedBy',
-  //   label: t('iu.warehouse.updatedBy'),
+  //   label: t('iu.productTag.updatedBy'),
   //   component: 'InputNumber',
   //   required: true,
   // },
   // {
   //   field: 'tenantId',
-  //   label: t('iu.warehouse.tenantId'),
+  //   label: t('iu.productTag.tenantId'),
   //   component: 'Input',
   //   required: true,
   // },
   // {
   //   field: 'appId',
-  //   label: t('iu.warehouse.appId'),
+  //   label: t('iu.productTag.appId'),
   //   component: 'Input',
   //   required: true,
   // },
   {
     field: 'name',
-    label: t('iu.warehouse.name'),
+    label: t('iu.productTag.name'),
     component: 'Input',
     required: true,
   },
   {
     field: 'key',
-    label: t('iu.warehouse.key'),
+    label: t('iu.productTag.key'),
     component: 'Input',
-    // required: true,
+    required: false,
   },
   {
-    field: 'address',
-    label: t('iu.warehouse.address'),
+    field: 'remark',
+    label: t('iu.productTag.remark'),
     component: 'Input',
-    // required: true,
-  },
-  {
-    field: 'description',
-    label: t('iu.warehouse.description'),
-    component: 'Input',
-    // required: true,
+    required: false,
   },
   {
     field: 'status',
-    label: t('iu.warehouse.status'),
+    label: t('iu.productTag.status'),
     component: 'RadioButtonGroup',
     defaultValue: 1,
     componentProps: {
