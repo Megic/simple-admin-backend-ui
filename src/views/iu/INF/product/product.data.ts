@@ -6,6 +6,7 @@ import { Switch } from 'ant-design-vue';
 import { getProductTagList } from '/@/api/iu/productTag';
 import { h } from 'vue';
 const { t } = useI18n();
+import { getDictionaryByName } from '/@/api/sys/dictionary';
 
 export const columns: BasicColumn[] = [
   {
@@ -270,7 +271,7 @@ export const formSchema: FormSchema[] = [
         { label: t('iu.product.type3'), value: 3 },
       ],
     },
-    colProps: { lg: 24, md: 24 },
+    colProps: { lg: 12, md: 12 },
   },
   {
     field: 'tag',
@@ -290,8 +291,17 @@ export const formSchema: FormSchema[] = [
   {
     field: 'dose',
     label: t('iu.product.dose'),
-    component: 'InputNumber',
     required: true,
+    component: 'ApiSelect',
+    componentProps: {
+      api: getDictionaryByName,
+      params: {
+        name: 'InboundType',
+      },
+      resultField: 'data.data',
+      labelField: 'title',
+      valueField: 'value',
+    },
   },
   {
     field: 'doseUnit',
