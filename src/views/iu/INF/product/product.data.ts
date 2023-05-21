@@ -289,6 +289,114 @@ export const formSchema: FormSchema[] = [
     },
   },
   {
+    field: 'category',
+    label: t('iu.product.category'),
+    required: true,
+    component: 'ApiSelect',
+    componentProps: {
+      api: getDictionaryByName,
+      params: {
+        name: 'DrugType',
+      },
+      resultField: 'data.data',
+      labelField: 'title',
+      valueField: 'title',
+    },
+  },
+  {
+    field: 'dosageForm',
+    label: t('iu.product.dosageForm'),
+    required: true,
+    component: 'ApiSelect',
+    componentProps: {
+      api: getDictionaryByName,
+      params: {
+        name: 'DrugForm',
+      },
+      resultField: 'data.data',
+      labelField: 'title',
+      valueField: 'title',
+    },
+  },
+  {
+    field: 'genericName',
+    label: t('iu.product.genericName'),
+    component: 'Input',
+    required: true,
+  },
+  {
+    field: 'productName',
+    label: t('iu.product.productName'),
+    component: 'Input',
+  },
+  {
+    field: 'manufacturer',
+    label: t('iu.product.manufacturer'),
+    component: 'Input',
+  },
+  {
+    field: 'approvalNumber',
+    label: t('iu.product.approvalNumber'),
+    component: 'Input',
+  },
+  {
+    field: 'barcode',
+    label: t('iu.product.barcode'),
+    component: 'Input',
+  },
+  {
+    field: 'pharmacologicalClassification',
+    label: t('iu.product.pharmacologicalClassification'),
+    component: 'ApiSelect',
+    componentProps: {
+      api: getDictionaryByName,
+      params: {
+        name: 'PharmacologicalType',
+      },
+      resultField: 'data.data',
+      labelField: 'title',
+      valueField: 'value',
+    },
+  },
+  {
+    field: 'usage',
+    label: t('iu.product.usage'),
+    component: 'ApiSelect',
+    componentProps: {
+      api: getDictionaryByName,
+      params: {
+        name: 'UsageType',
+      },
+      resultField: 'data.data',
+      labelField: 'title',
+      valueField: 'title',
+    },
+  },
+  {
+    field: 'prescription',
+    label: t('iu.product.prescription'),
+    component: 'RadioButtonGroup',
+    defaultValue: 0,
+    componentProps: {
+      options: [
+        { label: t('common.yes'), value: 1 },
+        { label: t('common.no'), value: 0 },
+      ],
+    },
+  },
+  {
+    field: 'skinTest',
+    label: t('iu.product.skinTest'),
+    component: 'RadioButtonGroup',
+    defaultValue: 0,
+    componentProps: {
+      options: [
+        { label: t('common.yes'), value: 1 },
+        { label: t('common.no'), value: 0 },
+      ],
+    },
+  },
+  {
     field: 'dose',
     label: t('iu.product.dose'),
     required: true,
@@ -354,72 +462,6 @@ export const formSchema: FormSchema[] = [
   {
     field: 'splitPrice',
     label: t('iu.product.splitPrice'),
-    component: 'InputNumber',
-    required: true,
-  },
-  {
-    field: 'genericName',
-    label: t('iu.product.genericName'),
-    component: 'Input',
-    required: true,
-  },
-  {
-    field: 'manufacturer',
-    label: t('iu.product.manufacturer'),
-    component: 'Input',
-    required: true,
-  },
-  {
-    field: 'category',
-    label: t('iu.product.category'),
-    component: 'Input',
-    required: true,
-  },
-  {
-    field: 'dosageForm',
-    label: t('iu.product.dosageForm'),
-    component: 'Input',
-    required: true,
-  },
-  {
-    field: 'productName',
-    label: t('iu.product.productName'),
-    component: 'Input',
-    required: true,
-  },
-  {
-    field: 'approvalNumber',
-    label: t('iu.product.approvalNumber'),
-    component: 'Input',
-    required: true,
-  },
-  {
-    field: 'barcode',
-    label: t('iu.product.barcode'),
-    component: 'Input',
-    required: true,
-  },
-  {
-    field: 'usage',
-    label: t('iu.product.usage'),
-    component: 'Input',
-    required: true,
-  },
-  {
-    field: 'pharmacologicalClassification',
-    label: t('iu.product.pharmacologicalClassification'),
-    component: 'Input',
-    required: true,
-  },
-  {
-    field: 'prescription',
-    label: t('iu.product.prescription'),
-    component: 'InputNumber',
-    required: true,
-  },
-  {
-    field: 'skinTest',
-    label: t('iu.product.skinTest'),
     component: 'InputNumber',
     required: true,
   },
