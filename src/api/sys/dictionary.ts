@@ -76,14 +76,27 @@ export const getDictionaryById = (params: BaseIDReq, mode: ErrorMessageMode = 'n
   );
 };
 
+
+const DictionaryCache={}
 /**
  *  @description: Get dictionary By ID
  */
  export const getDictionaryByName = (params: BaseDictReq, mode: ErrorMessageMode = 'notice') => {
-  return defHttp.get<BaseDataResp<DictionaryInfo>>(
-    { url: Api.GetDictionaryByName+params.name,  },
-    {
-      errorMessageMode: mode,
-    },
-  );
+  return new Promise<void>((resolve, reject) => {
+    console.log(DictionaryCache)
+    if(DictionaryCache[params.name]){
+      resolve(DictionaryCache[params.name])
+    }else{
+      defHttp.get<BaseDataResp<DictionaryInfo>>(
+        { url: Api.GetDictionaryByName+params.name,  },
+        {
+          errorMessageMode: mode,
+        },
+      ).then(function(res){
+        DictionaryCache[params.name]=res
+        resolve(DictionaryCache[params.name])
+      })
+    }
+  })
+  
 };

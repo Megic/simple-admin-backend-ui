@@ -29,9 +29,9 @@
 
       const [registerForm, { resetFields, setFieldsValue, validate }] = useForm({
         labelWidth: 100,
+        labelAlign:'right',
         schemas: formSchema,
-        showActionButtonGroup: false,
-        baseColProps: { lg: 12, md: 24 },
+        showActionButtonGroup: false
       });
 
       const [registerDrawer, { setDrawerProps, closeDrawer }] = useDrawerInner(async (data) => {

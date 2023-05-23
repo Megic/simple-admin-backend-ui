@@ -228,6 +228,7 @@ export const searchFormSchema: FormSchema[] = [
 ];
 
 export const formSchema: FormSchema[] = [
+
   {
     field: 'id',
     label: 'ID',
@@ -271,11 +272,16 @@ export const formSchema: FormSchema[] = [
         { label: t('iu.product.type3'), value: 3 },
       ],
     },
-    colProps: { lg: 12, md: 12 },
+    colProps: {
+      span: 12,
+    },
   },
   {
     field: 'tag',
     label: t('iu.product.tag'),
+    colProps: {
+      span: 12,
+    },
     component: 'ApiSelect',
     componentProps: {
       api: getProductTagList,
@@ -286,6 +292,14 @@ export const formSchema: FormSchema[] = [
       resultField: 'data.data',
       labelField: 'name',
       valueField: 'name',
+    },
+  },
+  {
+    field: 'divider-basic',
+    component: 'Divider',
+    label: '基础信息',
+    colProps: {
+      span: 24,
     },
   },
   {
@@ -327,21 +341,33 @@ export const formSchema: FormSchema[] = [
   {
     field: 'productName',
     label: t('iu.product.productName'),
+    colProps: {
+      span: 12,
+    },
     component: 'Input',
   },
   {
     field: 'manufacturer',
     label: t('iu.product.manufacturer'),
+    colProps: {
+      span: 12,
+    },
     component: 'Input',
   },
   {
     field: 'approvalNumber',
     label: t('iu.product.approvalNumber'),
+    colProps: {
+      span: 12,
+    },
     component: 'Input',
   },
   {
     field: 'barcode',
     label: t('iu.product.barcode'),
+    colProps: {
+      span: 12,
+    },
     component: 'Input',
   },
   {
@@ -362,6 +388,7 @@ export const formSchema: FormSchema[] = [
     field: 'usage',
     label: t('iu.product.usage'),
     component: 'ApiSelect',
+    labelWidth:50,
     componentProps: {
       api: getDictionaryByName,
       params: {
@@ -397,55 +424,114 @@ export const formSchema: FormSchema[] = [
     },
   },
   {
+    field: 'instructions',
+    label: t('iu.product.instructions'),
+    component: 'InputTextArea',
+    colProps: {
+      span: 24,
+    },
+  },
+  {
+    field: 'divider-api-select',
+    component: 'Divider',
+    label: '规格信息',
+    colProps: {
+      span: 24,
+    },
+  },
+  {
     field: 'dose',
     label: t('iu.product.dose'),
+    component: 'InputNumber',
+    componentProps: {
+    min:0
+    }
+  },
+  {
+    field: 'doseUnit',
+    label: '',
+    component: 'ApiSelect',
+    componentProps: {
+      placeholder: '单位',
+      api: getDictionaryByName,
+      params: {
+        name: 'DoseUnit',
+      },
+      resultField: 'data.data',
+      labelField: 'title',
+      valueField: 'title',
+    },
+  },
+  {
+    field: 'activeIngredient',
+    label: t('iu.product.activeIngredient'),
+    component: 'InputNumber',
+    componentProps: {
+    min:0
+    }
+  },
+  {
+    field: 'activeIngredientUnit',
+    label: '',
+    component: 'ApiSelect',
+    componentProps: {
+      placeholder: '单位',
+      api: getDictionaryByName,
+      params: {
+        name: 'DoseUnit',
+      },
+      resultField: 'data.data',
+      labelField: 'title',
+      valueField: 'title',
+    },
+  },
+  {
+    field: 'preparation',
+    label: t('iu.product.preparation'),
+    required: true,
+    component: 'InputNumber',
+    componentProps: {
+    min:0
+    }
+  },
+  {
+    field: 'preparationUnit',
+    label: '',
+    required: true,
+    component: 'ApiSelect',
+    componentProps: {
+      placeholder: '单位',
+      api: getDictionaryByName,
+      params: {
+        name: 'PackageType',
+      },
+      resultField: 'data.data',
+      labelField: 'title',
+      valueField: 'title',
+    },
+  },
+  {
+    field: 'package',
+    label: t('iu.product.package'),
     required: true,
     component: 'ApiSelect',
     componentProps: {
       api: getDictionaryByName,
       params: {
-        name: 'InboundType',
+        name: 'PackageType',
       },
       resultField: 'data.data',
       labelField: 'title',
-      valueField: 'value',
+      valueField: 'title',
     },
   },
   {
-    field: 'doseUnit',
-    label: t('iu.product.doseUnit'),
-    component: 'Input',
-    required: true,
-  },
-  {
-    field: 'activeIngredient',
-    label: t('iu.product.activeIngredient'),
-    component: 'Input',
-    required: true,
-  },
-  {
-    field: 'activeIngredientUnit',
-    label: t('iu.product.activeIngredientUnit'),
-    component: 'Input',
-    required: true,
-  },
-  {
-    field: 'preparation',
-    label: t('iu.product.preparation'),
-    component: 'Input',
-    required: true,
-  },
-  {
-    field: 'preparationUnit',
-    label: t('iu.product.preparationUnit'),
-    component: 'Input',
-    required: true,
-  },
-  {
-    field: 'package',
-    label: t('iu.product.package'),
-    component: 'Input',
-    required: true,
+    field: 'divider-api-select',
+    component: 'Divider',
+    label: '扩展信息',
+    colProps: {
+      span: 24,
+    },
   },
   {
     field: 'price',
@@ -466,16 +552,16 @@ export const formSchema: FormSchema[] = [
     required: true,
   },
   {
-    field: 'instructions',
-    label: t('iu.product.instructions'),
-    component: 'Input',
-    required: true,
-  },
-  {
     field: 'costCount',
     label: t('iu.product.costCount'),
-    component: 'InputNumber',
-    required: true,
+    component: 'RadioButtonGroup',
+    defaultValue: 0,
+    componentProps: {
+      options: [
+        { label: t('common.yes'), value: 1 },
+        { label: t('common.no'), value: 0 },
+      ],
+    },
   },
   {
     field: 'enabled',
@@ -487,13 +573,15 @@ export const formSchema: FormSchema[] = [
     field: 'location',
     label: t('iu.product.location'),
     component: 'Input',
-    required: true,
   },
   {
     field: 'stockThreshold',
     label: t('iu.product.stockThreshold'),
+    defaultValue: 0,
     component: 'InputNumber',
-    required: true,
+    componentProps: {
+    min:0
+    },
   },
   {
     field: 'status',
