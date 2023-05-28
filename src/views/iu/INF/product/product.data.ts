@@ -10,153 +10,41 @@ import { getDictionaryByName } from '/@/api/sys/dictionary';
 
 export const columns: BasicColumn[] = [
   {
-    title: t('iu.product.createdBy'),
-    dataIndex: 'createdBy',
-    width: 100,
-  },
-  {
-    title: t('iu.product.updatedBy'),
-    dataIndex: 'updatedBy',
-    width: 100,
-  },
-  {
-    title: t('iu.product.tenantId'),
-    dataIndex: 'tenantId',
-    width: 100,
-  },
-  {
-    title: t('iu.product.appId'),
-    dataIndex: 'appId',
-    width: 100,
-  },
-  {
-    title: t('iu.product.type'),
-    dataIndex: 'type',
-    width: 100,
-  },
-  {
-    title: t('iu.product.tag'),
-    dataIndex: 'tag',
-    width: 100,
-  },
-  {
-    title: t('iu.product.dose'),
-    dataIndex: 'dose',
-    width: 100,
-  },
-  {
-    title: t('iu.product.doseUnit'),
-    dataIndex: 'doseUnit',
-    width: 100,
-  },
-  {
-    title: t('iu.product.activeIngredient'),
-    dataIndex: 'activeIngredient',
-    width: 100,
-  },
-  {
-    title: t('iu.product.activeIngredientUnit'),
-    dataIndex: 'activeIngredientUnit',
-    width: 100,
-  },
-  {
-    title: t('iu.product.preparation'),
-    dataIndex: 'preparation',
-    width: 100,
-  },
-  {
-    title: t('iu.product.preparationUnit'),
-    dataIndex: 'preparationUnit',
-    width: 100,
-  },
-  {
-    title: t('iu.product.package'),
-    dataIndex: 'package',
-    width: 100,
-  },
-  {
-    title: t('iu.product.price'),
-    dataIndex: 'price',
-    width: 100,
-  },
-  {
-    title: t('iu.product.splitable'),
-    dataIndex: 'splitable',
-    width: 100,
-  },
-  {
-    title: t('iu.product.splitPrice'),
-    dataIndex: 'splitPrice',
-    width: 100,
-  },
-  {
-    title: t('iu.product.genericName'),
+    title: t('iu.product.title'),
     dataIndex: 'genericName',
-    width: 100,
+    align:'left'
+    // width: 100,
+    // fixed: 'left',
   },
-  {
-    title: t('iu.product.manufacturer'),
-    dataIndex: 'manufacturer',
-    width: 100,
-  },
+  // {
+  //   title: t('iu.product.manufacturer'),
+  //   dataIndex: 'manufacturer',
+  //   width: 100,
+  // },
   {
     title: t('iu.product.category'),
     dataIndex: 'category',
     width: 100,
   },
   {
-    title: t('iu.product.dosageForm'),
-    dataIndex: 'dosageForm',
-    width: 100,
+    title: t('iu.product.specification'),
+    dataIndex: 'specification',
+    width: 200,
+    customRender: ({ record }) => {
+            //剂量-最小规格
+            let dosestr=record.dose?record.dose+record.doseUnit:''
+            let activetr=record.activeIngredient?record.activeIngredient+record.activeIngredientUnit:''
+            let slistr = dosestr&&activetr?':':''
+            let prstr = dosestr+slistr+activetr
+            if(prstr)prstr+='*'
+            let packstr = record.preparationUnit!=record.package?'/'+record.package:''
+            //有效成分
+            return `${prstr}${record.preparation}${record.preparationUnit}${packstr}`;
+        },
   },
   {
-    title: t('iu.product.productName'),
-    dataIndex: 'productName',
-    width: 100,
-  },
-  {
-    title: t('iu.product.approvalNumber'),
-    dataIndex: 'approvalNumber',
-    width: 100,
-  },
-  {
-    title: t('iu.product.barcode'),
-    dataIndex: 'barcode',
-    width: 100,
-  },
-  {
-    title: t('iu.product.usage'),
-    dataIndex: 'usage',
-    width: 100,
-  },
-  {
-    title: t('iu.product.pharmacologicalClassification'),
-    dataIndex: 'pharmacologicalClassification',
-    width: 100,
-  },
-  {
-    title: t('iu.product.prescription'),
-    dataIndex: 'prescription',
-    width: 100,
-  },
-  {
-    title: t('iu.product.skinTest'),
-    dataIndex: 'skinTest',
-    width: 100,
-  },
-  {
-    title: t('iu.product.instructions'),
-    dataIndex: 'instructions',
-    width: 100,
-  },
-  {
-    title: t('iu.product.costCount'),
-    dataIndex: 'costCount',
-    width: 100,
-  },
-  {
-    title: t('iu.product.enabled'),
-    dataIndex: 'enabled',
+    title: t('iu.product.tag'),
+    dataIndex: 'tag',
     width: 100,
   },
   {
@@ -172,7 +60,7 @@ export const columns: BasicColumn[] = [
   {
     title: t('common.status'),
     dataIndex: 'status',
-    width: 50,
+    width: 100,
     customRender: ({ record }) => {
       if (!Reflect.has(record, 'pendingStatus')) {
         record.pendingStatus = false;
@@ -195,27 +83,21 @@ export const columns: BasicColumn[] = [
         },
       });
     },
-  },
-  {
-    title: t('common.createTime'),
-    dataIndex: 'createdAt',
-    width: 70,
-    customRender: ({ record }) => {
-      return formatToDateTime(record.createdAt);
-    },
-  },
+  }
+  // {
+  //   title: t('common.createTime'),
+  //   dataIndex: 'createdAt',
+  //   width: 70,
+  //   customRender: ({ record }) => {
+  //     return formatToDateTime(record.createdAt);
+  //   },
+  // },
 ];
 
 export const searchFormSchema: FormSchema[] = [
   {
-    field: 'tenantId',
-    label: t('iu.product.tenantId'),
-    component: 'Input',
-    colProps: { span: 8 },
-  },
-  {
-    field: 'appId',
-    label: t('iu.product.appId'),
+    field: 'genericName',
+    label: t('iu.product.title'),
     component: 'Input',
     colProps: { span: 8 },
   },
@@ -269,7 +151,6 @@ export const formSchema: FormSchema[] = [
       options: [
         { label: t('iu.product.type1'), value: 1 },
         { label: t('iu.product.type2'), value: 2 },
-        { label: t('iu.product.type3'), value: 3 },
       ],
     },
     colProps: {
@@ -305,6 +186,7 @@ export const formSchema: FormSchema[] = [
   {
     field: 'category',
     label: t('iu.product.category'),
+    ifShow: ({ values }) => values.type==1,
     required: true,
     component: 'ApiSelect',
     componentProps: {
@@ -318,9 +200,25 @@ export const formSchema: FormSchema[] = [
     },
   },
   {
+    field: 'category',
+    label: t('iu.product.category'),
+    ifShow: ({ values }) => values.type==2,
+    required: true,
+    component: 'ApiSelect',
+    componentProps: {
+      api: getDictionaryByName,
+      params: {
+        name: 'OtherType',
+      },
+      resultField: 'data.data',
+      labelField: 'title',
+      valueField: 'title',
+    },
+  },
+  {
     field: 'dosageForm',
     label: t('iu.product.dosageForm'),
-    required: true,
+    ifShow: ({ values }) => values.type==1,
     component: 'ApiSelect',
     componentProps: {
       api: getDictionaryByName,
@@ -357,6 +255,7 @@ export const formSchema: FormSchema[] = [
   {
     field: 'approvalNumber',
     label: t('iu.product.approvalNumber'),
+    ifShow: ({ values }) => values.type==1,
     colProps: {
       span: 12,
     },
@@ -373,6 +272,7 @@ export const formSchema: FormSchema[] = [
   {
     field: 'pharmacologicalClassification',
     label: t('iu.product.pharmacologicalClassification'),
+    ifShow: ({ values }) => values.type==1,
     component: 'ApiSelect',
     componentProps: {
       api: getDictionaryByName,
@@ -403,6 +303,7 @@ export const formSchema: FormSchema[] = [
     field: 'prescription',
     label: t('iu.product.prescription'),
     component: 'RadioButtonGroup',
+    ifShow: ({ values }) => values.type==1,
     defaultValue: 0,
     componentProps: {
       options: [
@@ -415,6 +316,7 @@ export const formSchema: FormSchema[] = [
     field: 'skinTest',
     label: t('iu.product.skinTest'),
     component: 'RadioButtonGroup',
+    ifShow: ({ values }) => values.type==1,
     defaultValue: 0,
     componentProps: {
       options: [
@@ -442,6 +344,7 @@ export const formSchema: FormSchema[] = [
   {
     field: 'dose',
     label: t('iu.product.dose'),
+    ifShow: ({ values }) => values.type==1,
     component: 'InputNumber',
     componentProps: {
     min:0
@@ -450,6 +353,7 @@ export const formSchema: FormSchema[] = [
   {
     field: 'doseUnit',
     label: '',
+    ifShow: ({ values }) => values.type==1,
     component: 'ApiSelect',
     componentProps: {
       placeholder: '单位',
@@ -465,6 +369,16 @@ export const formSchema: FormSchema[] = [
   {
     field: 'activeIngredient',
     label: t('iu.product.activeIngredient'),
+    ifShow: ({ values }) => values.type==1,
+    component: 'InputNumber',
+    componentProps: {
+    min:0
+    }
+  },
+  {
+    field: 'activeIngredient',
+    label: t('iu.product.nonactiveIngredient'),
+    ifShow: ({ values }) => values.type==2,
     component: 'InputNumber',
     componentProps: {
     min:0
@@ -473,6 +387,7 @@ export const formSchema: FormSchema[] = [
   {
     field: 'activeIngredientUnit',
     label: '',
+    // ifShow: ({ values }) => values.type==1,
     component: 'ApiSelect',
     componentProps: {
       placeholder: '单位',
@@ -488,6 +403,17 @@ export const formSchema: FormSchema[] = [
   {
     field: 'preparation',
     label: t('iu.product.preparation'),
+    ifShow: ({ values }) => values.type==1,
+    required: true,
+    component: 'InputNumber',
+    componentProps: {
+    min:0
+    }
+  },
+  {
+    field: 'preparation',
+    label: t('iu.product.preparation_2'),
+    ifShow: ({ values }) => values.type==2,
     required: true,
     component: 'InputNumber',
     componentProps: {
@@ -534,22 +460,58 @@ export const formSchema: FormSchema[] = [
     },
   },
   {
+    field: 'enabled',
+    label: t('iu.product.enabled'),
+    component: 'RadioButtonGroup',
+    defaultValue: 0,
+    componentProps: {
+      options: [
+        { label: t('common.yes'), value: 1 },
+        { label: t('common.no'), value: 0 },
+      ],
+    },
+  },
+  {
     field: 'price',
     label: t('iu.product.price'),
     component: 'InputNumber',
-    required: true,
+    componentProps: {
+      prefix:'￥',
+      formatter:(value)=>{
+        return  value/100
+      },
+      parser:(value)=>{
+        return value*100
+      },
+      min:0
+    }
   },
   {
     field: 'splitable',
     label: t('iu.product.splitable'),
-    component: 'InputNumber',
-    required: true,
+    component: 'RadioButtonGroup',
+    defaultValue: 0,
+    componentProps: {
+      options: [
+        { label: t('common.yes'), value: 1 },
+        { label: t('common.no'), value: 0 },
+      ],
+    },
   },
   {
     field: 'splitPrice',
     label: t('iu.product.splitPrice'),
     component: 'InputNumber',
-    required: true,
+    componentProps: {
+      prefix:'￥',
+      formatter:(value)=>{
+        return  value/100
+      },
+      parser:(value)=>{
+        return value*100
+      },
+      min:0
+    }
   },
   {
     field: 'costCount',
@@ -562,12 +524,6 @@ export const formSchema: FormSchema[] = [
         { label: t('common.no'), value: 0 },
       ],
     },
-  },
-  {
-    field: 'enabled',
-    label: t('iu.product.enabled'),
-    component: 'InputNumber',
-    required: true,
   },
   {
     field: 'location',

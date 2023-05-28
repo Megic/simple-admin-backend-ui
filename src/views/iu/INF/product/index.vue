@@ -64,7 +64,7 @@
         api: getProductList,
         columns,
         formConfig: {
-          labelWidth: 120,
+          labelWidth: 80,
           schemas: searchFormSchema,
         },
         useSearchForm: true,
@@ -73,10 +73,10 @@
         showIndexColumn: false,
         clickToRowSelect: false,
         actionColumn: {
-          width: 30,
+          width: 150,
           title: t('common.action'),
           dataIndex: 'action',
-          fixed: undefined,
+          fixed: 'right',
         },
         rowKey: 'id',
         rowSelection: {
