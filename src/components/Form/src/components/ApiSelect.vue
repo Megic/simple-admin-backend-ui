@@ -41,7 +41,7 @@
     },
     inheritAttrs: false,
     props: {
-      value: [Array, Object, String, Number],
+      value: [String, Number],
       numberToString: propTypes.bool,
       stringToNumber: propTypes.bool,
       api: {

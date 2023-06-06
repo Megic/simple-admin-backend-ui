@@ -100,7 +100,7 @@
 <script lang="ts" setup>
   import { reactive, ref, unref, computed } from 'vue';
 
-  import { Checkbox, Form, Input, Row, Col, Button, Divider } from 'ant-design-vue';
+  import { Form, Input, Row, Col, Button, Divider } from 'ant-design-vue';
   import {
     GithubFilled,
     WechatFilled,
@@ -134,7 +134,7 @@
 
   const formRef = ref();
   const loading = ref(false);
-  const rememberMe = ref(false);
+  // const rememberMe = ref(false);
 
   const formData = reactive({
     account: '',
@@ -158,7 +158,7 @@
         username: data.account,
         captcha: data.captcha,
         captchaId: data.captchaId,
-        mode: 'message',
+        mode: 'none',
         goHome: false,
       })
       .then(() => {
