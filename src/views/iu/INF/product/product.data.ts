@@ -1,6 +1,6 @@
 import { BasicColumn, FormSchema } from '/@/components/Table';
 import { useI18n } from '/@/hooks/web/useI18n';
-import { formatToDateTime } from '/@/utils/dateUtil';
+import { getSPE } from '/@/utils/common/fn';
 import { updateProduct } from '/@/api/iu/product';
 import { Switch } from 'ant-design-vue';
 import { getProductTagList } from '/@/api/iu/productTag';
@@ -31,15 +31,7 @@ export const columns: BasicColumn[] = [
     dataIndex: 'specification',
     width: 200,
     customRender: ({ record }) => {
-            //剂量-最小规格
-            let dosestr=record.dose?record.dose+record.doseUnit:''
-            let activetr=record.activeIngredient?record.activeIngredient+record.activeIngredientUnit:''
-            let slistr = dosestr&&activetr?':':''
-            let prstr = dosestr+slistr+activetr
-            if(prstr)prstr+='*'
-            let packstr = record.preparationUnit!=record.package?'/'+record.package:''
-            //有效成分
-            return `${prstr}${record.preparation}${record.preparationUnit}${packstr}`;
+            return getSPE(record)
         },
   },
   {
@@ -99,13 +91,24 @@ export const searchFormSchema: FormSchema[] = [
     field: 'genericName',
     label: t('iu.product.title'),
     component: 'Input',
-    colProps: { span: 8 },
+    colProps: { span: 6 },
   },
   {
     field: 'tag',
     label: t('iu.product.tag'),
-    component: 'Input',
-    colProps: { span: 8 },
+    colProps: { span: 6 },
+    component: 'ApiSelect',
+    componentProps: {
+      api: getProductTagList,
+      params: {
+        page: 1,
+        pageSize: 1000,
+      },
+      showSearch:true,
+      resultField: 'data.data',
+      labelField: 'name',
+      valueField: 'name',
+    },
   },
 ];
 
@@ -153,16 +156,10 @@ export const formSchema: FormSchema[] = [
         { label: t('iu.product.type2'), value: 2 },
       ],
     },
-    colProps: {
-      span: 12,
-    },
   },
   {
     field: 'tag',
     label: t('iu.product.tag'),
-    colProps: {
-      span: 12,
-    },
     component: 'ApiSelect',
     componentProps: {
       api: getProductTagList,
@@ -170,6 +167,7 @@ export const formSchema: FormSchema[] = [
         page: 1,
         pageSize: 1000,
       },
+      showSearch:true,
       resultField: 'data.data',
       labelField: 'name',
       valueField: 'name',
@@ -194,6 +192,7 @@ export const formSchema: FormSchema[] = [
       params: {
         name: 'DrugType',
       },
+      showSearch:true,
       resultField: 'data.data',
       labelField: 'title',
       valueField: 'title',
@@ -210,6 +209,7 @@ export const formSchema: FormSchema[] = [
       params: {
         name: 'OtherType',
       },
+      showSearch:true,
       resultField: 'data.data',
       labelField: 'title',
       valueField: 'title',
@@ -225,6 +225,7 @@ export const formSchema: FormSchema[] = [
       params: {
         name: 'DrugForm',
       },
+      showSearch:true,
       resultField: 'data.data',
       labelField: 'title',
       valueField: 'title',
@@ -279,6 +280,7 @@ export const formSchema: FormSchema[] = [
       params: {
         name: 'PharmacologicalType',
       },
+      showSearch:true,
       resultField: 'data.data',
       labelField: 'title',
       valueField: 'value',
@@ -294,6 +296,7 @@ export const formSchema: FormSchema[] = [
       params: {
         name: 'UsageType',
       },
+      showSearch:true,
       resultField: 'data.data',
       labelField: 'title',
       valueField: 'title',
@@ -361,6 +364,7 @@ export const formSchema: FormSchema[] = [
       params: {
         name: 'DoseUnit',
       },
+      showSearch:true,
       resultField: 'data.data',
       labelField: 'title',
       valueField: 'title',
@@ -395,6 +399,7 @@ export const formSchema: FormSchema[] = [
       params: {
         name: 'DoseUnit',
       },
+      showSearch:true,
       resultField: 'data.data',
       labelField: 'title',
       valueField: 'title',
@@ -431,6 +436,7 @@ export const formSchema: FormSchema[] = [
       params: {
         name: 'PackageType',
       },
+      showSearch:true,
       resultField: 'data.data',
       labelField: 'title',
       valueField: 'title',
@@ -446,6 +452,7 @@ export const formSchema: FormSchema[] = [
       params: {
         name: 'PackageType',
       },
+      showSearch:true,
       resultField: 'data.data',
       labelField: 'title',
       valueField: 'title',
