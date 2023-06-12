@@ -11,7 +11,7 @@ export function formatToDateTime(date?: dayjs.ConfigType, format = DATE_TIME_FOR
 }
 
 export function formatToDate(date?: dayjs.ConfigType, format = DATE_FORMAT): string {
-  return dayjs(date).format(format);
+  return date?dayjs(date).format(format):'';
 }
 
 export const dateUtil = dayjs;

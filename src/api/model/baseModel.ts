@@ -17,6 +17,7 @@ export interface BaseDataResp<T> {
 export interface BaseResp {
   code?: number;
   msg: string;
+  data: any;
 }
 
 export interface BaseIDReq {

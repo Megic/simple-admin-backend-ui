@@ -305,9 +305,9 @@ export const formSchema: FormSchema[] = [
   {
     field: 'prescription',
     label: t('iu.product.prescription'),
-    component: 'RadioButtonGroup',
     ifShow: ({ values }) => values.type==1,
     defaultValue: 0,
+    component: 'RadioButtonGroup',
     componentProps: {
       options: [
         { label: t('common.yes'), value: 1 },

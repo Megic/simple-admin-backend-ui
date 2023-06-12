@@ -3,6 +3,7 @@ import { useI18n } from '/@/hooks/web/useI18n';
 import { formatToDateTime } from '/@/utils/dateUtil';
 import { updateStudent } from '/@/api/iu/student';
 import { Switch } from 'ant-design-vue';
+import { getDictionaryByName } from '/@/api/sys/dictionary';
 import { h } from 'vue';
 const { t } = useI18n();
 
@@ -139,97 +140,158 @@ export const formSchema: FormSchema[] = [
   {
     field: 'id',
     label: 'ID',
-    component: 'Input',
+    component: 'InputNumber',
     show: false,
   },
-
+  {
+    field: 'divider-basic',
+    component: 'Divider',
+    label: '学生扩展信息',
+    colProps: {
+      span: 24,
+    },
+  },
   {
     field: 'patientId',
     label: t('iu.student.patientId'),
     component: 'InputNumber',
-    required: true,
+    show: false,
   },
   {
     field: 'name',
     label: t('iu.student.name'),
     component: 'Input',
-    required: true,
+    show: false,
   },
+  {
+    field: 'faculty',
+    label: t('iu.student.faculty'),
+    required: true,
+    component: 'ApiSelect',
+    componentProps: {
+      api: getDictionaryByName,
+      params: {
+        name: 'Faculty',
+      },
+      showSearch:true,
+      resultField: 'data.data',
+      labelField: 'title',
+      valueField: 'title',
+    }
+  },
+  {
+    field: 'schoolSection',
+    label: t('iu.student.schoolSection'),
+    required: true,
+    component: 'ApiSelect',
+    componentProps: {
+      api: getDictionaryByName,
+      params: {
+        name: 'Section',
+      },
+      showSearch:true,
+      resultField: 'data.data',
+      labelField: 'title',
+      valueField: 'title',
+    }
+  },
+  {
+    field: 'grade',
+    label: t('iu.student.grade'),
+    required: true,
+    component: 'ApiSelect',
+    componentProps: {
+      api: getDictionaryByName,
+      params: {
+        name: 'Grade',
+      },
+      showSearch:true,
+      resultField: 'data.data',
+      labelField: 'title',
+      valueField: 'title',
+    }
+  },
+  {
+    field: 'class',
+    label: t('iu.student.class'),
+    required: true,
+    component: 'ApiSelect',
+    componentProps: {
+      api: getDictionaryByName,
+      params: {
+        name: 'Class',
+      },
+      showSearch:true,
+      resultField: 'data.data',
+      labelField: 'title',
+      valueField: 'title',
+    }
+  },
+  
   {
     field: 'no',
     label: t('iu.student.no'),
     component: 'Input',
-    required: true,
+    // required: true,
   },
   {
     field: 'studentNo',
     label: t('iu.student.studentNo'),
     component: 'Input',
-    required: true,
+    // required: true,
   },
   {
     field: 'pname',
     label: t('iu.student.pname'),
     component: 'Input',
-    required: true,
+    // required: true,
   },
   {
     field: 'phone',
     label: t('iu.student.phone'),
     component: 'Input',
-    required: true,
+    // required: true,
   },
   {
     field: 'pname2',
     label: t('iu.student.pname2'),
     component: 'Input',
-    required: true,
+    // required: true,
   },
   {
     field: 'phone2',
     label: t('iu.student.phone2'),
     component: 'Input',
-    required: true,
+    // required: true,
   },
   {
     field: 'isStay',
     label: t('iu.student.isStay'),
-    component: 'InputNumber',
-    required: true,
+    defaultValue: 0,
+    component: 'RadioButtonGroup',
+    componentProps: {
+      options: [
+        { label: t('common.yes'), value: 1 },
+        { label: t('common.no'), value: 0 },
+      ],
+    },
   },
   {
     field: 'cansport',
     label: t('iu.student.cansport'),
-    component: 'InputNumber',
-    required: true,
-  },
-  {
-    field: 'class',
-    label: t('iu.student.class'),
-    component: 'Input',
-    required: true,
-  },
-  {
-    field: 'grade',
-    label: t('iu.student.grade'),
-    component: 'Input',
-    required: true,
-  },
-  {
-    field: 'schoolSection',
-    label: t('iu.student.schoolSection'),
-    component: 'Input',
-    required: true,
-  },
-  {
-    field: 'faculty',
-    label: t('iu.student.faculty'),
-    component: 'Input',
-    required: true,
+    defaultValue: 1,
+    component: 'RadioButtonGroup',
+    componentProps: {
+      options: [
+        { label: t('common.yes'), value: 1 },
+        { label: t('common.no'), value: 0 },
+      ],
+    },
   },
   {
     field: 'status',
     label: t('iu.student.status'),
+    show: false,
     component: 'RadioButtonGroup',
     defaultValue: 1,
     componentProps: {

@@ -1,18 +1,15 @@
 import { BasicColumn, FormSchema } from '/@/components/Table';
 import { useI18n } from '/@/hooks/web/useI18n';
-import { formatToDateTime } from '/@/utils/dateUtil';
+import { formatToDateTime,formatToDate } from '/@/utils/dateUtil';
 import { updatePatient } from '/@/api/iu/patient';
 import { Switch } from 'ant-design-vue';
 import { getDictionaryByName } from '/@/api/sys/dictionary';
 import { h } from 'vue';
+import * as filter from '/@/utils/common/filter';
 const { t } = useI18n();
 
 export const columns: BasicColumn[] = [
-  {
-    title: t('iu.patient.key'),
-    dataIndex: 'key',
-    width: 100,
-  },
+
   {
     title: t('iu.patient.type'),
     dataIndex: 'type',
@@ -27,11 +24,23 @@ export const columns: BasicColumn[] = [
     title: t('iu.patient.sex'),
     dataIndex: 'sex',
     width: 100,
+    format:(text: string, record: any, index: number) =>{
+      return filter.sex(Number(text))
+    },
+  },
+  {
+    title: t('iu.patient.key'),
+    dataIndex: 'key',
+    width: 100,
   },
   {
     title: t('iu.patient.cardType'),
     dataIndex: 'cardType',
     width: 100,
+    // slots: { customRender: 'dict',dictType: 'IDType'}
+    // format: async (text: string, record: any, index: number) =>{
+    //   return await filter.dict('IDType',text)
+    // },
   },
   {
     title: t('iu.patient.cardNo'),
@@ -41,7 +50,13 @@ export const columns: BasicColumn[] = [
   {
     title: t('iu.patient.birth'),
     dataIndex: 'birth',
-    width: 100,
+    width: 180,
+    customRender: ({ record }) => {
+      return formatToDate(record.birth) +`(${filter.age(record.birth)})`;
+    },
+    // format:(text: string, record: any, index: number) =>{
+    //   return filter.birth(text)
+    // },
   },
   {
     title: t('iu.patient.height'),
@@ -68,40 +83,40 @@ export const columns: BasicColumn[] = [
     dataIndex: 'address',
     width: 100,
   },
-  {
-    title: t('iu.patient.addressArea'),
-    dataIndex: 'addressArea',
-    width: 100,
-  },
-  {
-    title: t('iu.patient.addressStreet'),
-    dataIndex: 'addressStreet',
-    width: 100,
-  },
-  {
-    title: t('iu.patient.addressCommunity'),
-    dataIndex: 'addressCommunity',
-    width: 100,
-  },
-  {
-    title: t('iu.patient.address2'),
-    dataIndex: 'address2',
-    width: 100,
-  },
-  {
-    title: t('iu.patient.medicalHistory'),
-    dataIndex: 'medicalHistory',
-    width: 100,
-  },
-  {
-    title: t('iu.patient.allergyHistory'),
-    dataIndex: 'allergyHistory',
-    width: 100,
-  },
+  // {
+  //   title: t('iu.patient.addressArea'),
+  //   dataIndex: 'addressArea',
+  //   width: 100,
+  // },
+  // {
+  //   title: t('iu.patient.addressStreet'),
+  //   dataIndex: 'addressStreet',
+  //   width: 100,
+  // },
+  // {
+  //   title: t('iu.patient.addressCommunity'),
+  //   dataIndex: 'addressCommunity',
+  //   width: 100,
+  // },
+  // {
+  //   title: t('iu.patient.address2'),
+  //   dataIndex: 'address2',
+  //   width: 100,
+  // },
+  // {
+  //   title: t('iu.patient.medicalHistory'),
+  //   dataIndex: 'medicalHistory',
+  //   width: 100,
+  // },
+  // {
+  //   title: t('iu.patient.allergyHistory'),
+  //   dataIndex: 'allergyHistory',
+  //   width: 100,
+  // },
   {
     title: t('common.status'),
     dataIndex: 'status',
-    width: 50,
+    width: 80,
     customRender: ({ record }) => {
       if (!Reflect.has(record, 'pendingStatus')) {
         record.pendingStatus = false;
@@ -169,38 +184,31 @@ export const formSchema: FormSchema[] = [
     label: t('iu.patient.type'),
     component: 'RadioButtonGroup',
     defaultValue: 1,
-    componentProps: ({ schema, tableAction, formActionType, formModel }) => {
-      return {
-        options: [
-              { label: t('iu.patient.type1'), value: 1 },
-              { label: t('iu.patient.type2'), value: 2 },
-              { label: t('iu.patient.type3'), value: 3 },
-            ],
-            change:e=>{
-          // const {reload}=tableAction
-          // reload()
-          // // or
-          // formModel.xxx='123'
-          console.log(this,e)
-        }
-      };
-    }
-    // componentProps: {
-    //   onChange:(val)=>{
-    //     console.log(this,val)
-    //   },
-    //   options: [
-    //     { label: t('iu.patient.type1'), value: 1 },
-    //     { label: t('iu.patient.type2'), value: 2 },
-    //     { label: t('iu.patient.type3'), value: 3 },
-    //   ],
-    // },
+    componentProps: {
+      options: [
+        { label: t('iu.patient.type1'), value: 1 },
+        { label: t('iu.patient.type2'), value: 2 },
+        { label: t('iu.patient.type3'), value: 3 },
+      ],
+    },
   },
   {
     field: 'key',
     label: t('iu.patient.key'),
     component: 'Input',
     // required: true,
+  },
+  {
+    field: 'status',
+    label: t('iu.patient.status'),
+    component: 'RadioButtonGroup',
+    defaultValue: 1,
+    componentProps: {
+      options: [
+        { label: t('common.on'), value: 1 },
+        { label: t('common.off'), value: 2 },
+      ],
+    },
   },
   {
     field: 'divider-basic',
@@ -214,7 +222,7 @@ export const formSchema: FormSchema[] = [
     field: 'name',
     label: t('iu.patient.name'),
     component: 'Input',
-    required: true,
+    required: true
   },
   {
     field: 'sex',
@@ -232,6 +240,12 @@ export const formSchema: FormSchema[] = [
     field: 'birth',
     label: t('iu.patient.birth'),
     component: 'DatePicker',
+    // required: true,
+  },
+  {
+    field: 'phone',
+    label: t('iu.patient.phone'),
+    component: 'Input',
     // required: true,
   },
   {
@@ -300,24 +314,24 @@ export const formSchema: FormSchema[] = [
       span: 12,
     },
   },
-  // {
-  //   field: 'addressArea',
-  //   label: t('iu.patient.addressArea'),
-  //   component: 'Input',
-  //   required: true,
-  // },
-  // {
-  //   field: 'addressStreet',
-  //   label: t('iu.patient.addressStreet'),
-  //   component: 'Input',
-  //   required: true,
-  // },
-  // {
-  //   field: 'addressCommunity',
-  //   label: t('iu.patient.addressCommunity'),
-  //   component: 'Input',
-  //   required: true,
-  // },
+  {
+    field: 'addressArea',
+    label: t('iu.patient.addressArea'),
+    component: 'Input',
+    required: true,
+  },
+  {
+    field: 'addressStreet',
+    label: t('iu.patient.addressStreet'),
+    component: 'Input',
+    required: true,
+  },
+  {
+    field: 'addressCommunity',
+    label: t('iu.patient.addressCommunity'),
+    component: 'Input',
+    required: true,
+  },
   {
     field: 'address2',
     label: t('iu.patient.address2'),
@@ -362,18 +376,6 @@ export const formSchema: FormSchema[] = [
     },
     colProps: {
       span: 12,
-    },
-  },
-  {
-    field: 'status',
-    label: t('iu.patient.status'),
-    component: 'RadioButtonGroup',
-    defaultValue: 1,
-    componentProps: {
-      options: [
-        { label: t('common.on'), value: 1 },
-        { label: t('common.off'), value: 2 },
-      ],
     },
   },
 ];

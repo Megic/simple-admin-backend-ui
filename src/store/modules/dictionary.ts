@@ -12,6 +12,7 @@ export const useDictionaryStore = defineStore({
   state: () => {
     return {
       data: new Map<string, DictionaryData>(),
+      ldata: new Map<string, any>(),
     };
   },
   getters: {
@@ -21,24 +22,26 @@ export const useDictionaryStore = defineStore({
   },
   actions: {
     // Get dictionary info
-    async getDictionary(name: string) {
+    async getDictionary(name: string,isldata=false) {
       if (this.data.has(name)) {
-        return this.data[name];
+        return isldata?this.ldata.get(name):this.data.get(name);
       } else {
         const result = await GetDictionaryDetailByDictionaryName({ name: name });
         if (result.code === 0) {
           const dataConv = ref<DefaultOptionType[]>([]);
-
+          const objData ={}
           for (let i = 0; i < result.data.total; i++) {
             dataConv.value.push({
               label: result.data.data[i].title,
               value: result.data.data[i].value,
             });
+            objData[result.data.data[i].value!]=result.data.data[i].title
           }
 
           const dictData: DictionaryData = { data: dataConv.value };
           this.data.set(name, dictData);
-          return dictData;
+          this.ldata.set(name, objData);
+          return isldata?objData:dictData;
         } else {
           return null;
         }

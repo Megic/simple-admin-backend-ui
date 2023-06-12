@@ -83,7 +83,6 @@ const DictionaryCache={}
  */
  export const getDictionaryByName = (params: BaseDictReq, mode: ErrorMessageMode = 'notice') => {
   return new Promise<void>((resolve, reject) => {
-    console.log(DictionaryCache)
     if(DictionaryCache[params.name]){
       resolve(DictionaryCache[params.name])
     }else{

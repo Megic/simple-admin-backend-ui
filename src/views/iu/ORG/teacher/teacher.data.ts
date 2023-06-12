@@ -3,6 +3,7 @@ import { useI18n } from '/@/hooks/web/useI18n';
 import { formatToDateTime } from '/@/utils/dateUtil';
 import { updateTeacher } from '/@/api/iu/teacher';
 import { Switch } from 'ant-design-vue';
+import { getDictionaryByName } from '/@/api/sys/dictionary';
 import { h } from 'vue';
 const { t } = useI18n();
 
@@ -99,50 +100,68 @@ export const formSchema: FormSchema[] = [
   {
     field: 'id',
     label: 'ID',
-    component: 'Input',
+    component: 'InputNumber',
     show: false,
   },
-
+  {
+    field: 'divider-basic',
+    component: 'Divider',
+    label: '职工扩展信息',
+    colProps: {
+      span: 24,
+    },
+  },
   {
     field: 'patientId',
     label: t('iu.teacher.patientId'),
     component: 'InputNumber',
-    required: true,
+    show: false,
   },
   {
     field: 'name',
     label: t('iu.teacher.name'),
     component: 'Input',
+    show: false,
+  },
+  {
+    field: 'faculty',
+    label: t('iu.teacher.faculty'),
     required: true,
+    component: 'ApiSelect',
+    componentProps: {
+      api: getDictionaryByName,
+      params: {
+        name: 'Faculty',
+      },
+      showSearch:true,
+      resultField: 'data.data',
+      labelField: 'title',
+      valueField: 'title',
+    }
   },
   {
     field: 'no',
     label: t('iu.teacher.no'),
     component: 'Input',
-    required: true,
+    // required: true,
   },
   {
     field: 'wphone',
     label: t('iu.teacher.wphone'),
     component: 'Input',
-    required: true,
+    // required: true,
   },
   {
     field: 'deparment',
     label: t('iu.teacher.deparment'),
     component: 'Input',
-    required: true,
-  },
-  {
-    field: 'faculty',
-    label: t('iu.teacher.faculty'),
-    component: 'Input',
-    required: true,
+    // required: true,
   },
   {
     field: 'status',
     label: t('iu.teacher.status'),
     component: 'RadioButtonGroup',
+    show: false,
     defaultValue: 1,
     componentProps: {
       options: [

@@ -13,6 +13,9 @@
         </a-button>
       </template>
       <template #bodyCell="{ column, record }">
+        <template v-if="column.key === 'cardType'">
+         <span>{{ dict.IDType[record.cardType] }}</span>
+        </template>
         <template v-if="column.key === 'action'">
           <TableAction
             :actions="[
@@ -38,17 +41,22 @@
   </div>
 </template>
 <script lang="ts">
-  import { createVNode, defineComponent, ref } from 'vue';
+  import { createVNode, defineComponent, ref,reactive } from 'vue';
   import { Button, Modal } from 'ant-design-vue';
   import { ExclamationCircleOutlined, DeleteOutlined } from '@ant-design/icons-vue/lib/icons';
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-
+  // import Dict from '/@/components/common/Dict.vue';
   import { useDrawer } from '/@/components/Drawer';
   import PatientDrawer from './PatientDrawer.vue';
   import { useI18n } from 'vue-i18n';
-
+  import { useDictionaryStore } from '/@/store/modules/dictionary';
   import { columns, searchFormSchema } from './patient.data';
   import { getPatientList, deletePatient } from '/@/api/iu/patient';
+  import { useComponentRegister } from '@/components/Form/index';
+
+import Address from '@/components/common/address.vue';
+
+useComponentRegister('Address', Address);
 
   export default defineComponent({
     name: 'PatientManagement',
@@ -128,8 +136,15 @@
       async function handleSuccess() {
         await reload();
       }
-
+      const dictStore = useDictionaryStore();
+      // let IDType=ref({})
+      let dicobj: any = {};
+      (async () => {
+        dicobj.IDType = await dictStore.getDictionary('IDType',true);
+      })()
+      const dict= reactive(dicobj)
       return {
+        dict,
         t,
         registerTable,
         registerDrawer,
