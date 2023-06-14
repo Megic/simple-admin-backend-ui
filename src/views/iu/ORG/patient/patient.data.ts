@@ -307,9 +307,9 @@ export const formSchema: FormSchema[] = [
     },
   },
   {
-    field: 'address',
+    field: '[addressArea, addressStreet,address]',
     label: t('iu.patient.address'),
-    component: 'Input',
+    component: 'Address',
     colProps: {
       span: 12,
     },
