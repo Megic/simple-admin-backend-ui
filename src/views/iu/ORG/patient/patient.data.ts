@@ -307,30 +307,30 @@ export const formSchema: FormSchema[] = [
     },
   },
   {
-    field: '[addressArea, addressStreet,address]',
+    field: 'address',
     label: t('iu.patient.address'),
-    component: 'Address',
+    component: 'Input',
     colProps: {
       span: 12,
     },
   },
-  {
-    field: 'addressArea',
-    label: t('iu.patient.addressArea'),
-    component: 'Input',
-    required: true,
-  },
+  // {
+  //   field: 'addressArea',
+  //   label: t('iu.patient.addressArea'),
+  //   component: 'Input',
+  //   required: true,
+  // },
   {
     field: 'addressStreet',
     label: t('iu.patient.addressStreet'),
     component: 'Input',
-    required: true,
+    // required: true,
   },
   {
     field: 'addressCommunity',
     label: t('iu.patient.addressCommunity'),
     component: 'Input',
-    required: true,
+    // required: true,
   },
   {
     field: 'address2',
