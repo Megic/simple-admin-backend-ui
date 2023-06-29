@@ -48,7 +48,7 @@
       });
 
       const getTitle = computed(() =>
-        !unref(isUpdate) ? t('sys.apis.addApi') : t('sys.apis.editApi'),
+        !unref(isUpdate) ? t('fileManager.addFile') : t('fileManager.editFile'),
       );
 
       async function handleSubmit() {
@@ -56,7 +56,7 @@
           const values = await validate();
           setDrawerProps({ confirmLoading: true });
           let params: updateFileInfoReq = {
-            id: Number(values['id']),
+            id: values['id'],
             name: values['name'],
           };
           await UpdateFileInfo(params);
