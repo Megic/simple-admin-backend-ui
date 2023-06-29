@@ -52,11 +52,6 @@
   import { useDictionaryStore } from '/@/store/modules/dictionary';
   import { columns, searchFormSchema } from './patient.data';
   import { getPatientList, deletePatient } from '/@/api/iu/patient';
-  import { useComponentRegister } from '@/components/Form/index';
-
-import { Address } from '@/components/common/address';
-
-useComponentRegister('Address', Address);
 
   export default defineComponent({
     name: 'PatientManagement',

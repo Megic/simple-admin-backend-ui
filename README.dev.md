@@ -1,0 +1,1 @@
+docker build -t nexus.cloudsean.com/cloudsean/xyt-ui:1.0 .
