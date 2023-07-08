@@ -13,14 +13,14 @@
 <script lang="ts">
   import { defineComponent, ref, computed, unref } from 'vue';
   import { BasicForm, useForm } from '/@/components/Form/index';
-  import { formSchema } from './oauthProvider.data';
+  import { formSchema } from './tag.data';
   import { BasicDrawer, useDrawerInner } from '/@/components/Drawer';
   import { useI18n } from 'vue-i18n';
 
-  import { createOauthProvider, updateOauthProvider } from '/@/api/sys/oauthProvider';
+  import { createTag, updateTag } from '/@/api/fms/tag';
 
   export default defineComponent({
-    name: 'OauthProviderDrawer',
+    name: 'TagDrawer',
     components: { BasicDrawer, BasicForm },
     emits: ['success', 'register'],
     setup(_, { emit }) {
@@ -48,18 +48,14 @@
       });
 
       const getTitle = computed(() =>
-        !unref(isUpdate)
-          ? t('sys.oauthProvider.addOauthProvider')
-          : t('sys.oauthProvider.editOauthProvider'),
+        !unref(isUpdate) ? t('fms.tag.addTag') : t('fms.tag.editTag'),
       );
 
       async function handleSubmit() {
         const values = await validate();
         setDrawerProps({ confirmLoading: true });
         values['id'] = unref(isUpdate) ? Number(values['id']) : 0;
-        let result = unref(isUpdate)
-          ? await updateOauthProvider(values)
-          : await createOauthProvider(values);
+        let result = unref(isUpdate) ? await updateTag(values) : await createTag(values);
         if (result.code === 0) {
           closeDrawer();
           emit('success');

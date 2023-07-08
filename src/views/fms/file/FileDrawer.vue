@@ -13,14 +13,13 @@
 <script lang="ts">
   import { defineComponent, ref, computed, unref } from 'vue';
   import { BasicForm, useForm } from '/@/components/Form/index';
-  import { formSchema } from './oauth.data';
+  import { formSchema } from './file.data';
   import { BasicDrawer, useDrawerInner } from '/@/components/Drawer';
   import { useI18n } from 'vue-i18n';
-
-  import { createOauthProvider, updateOauthProvider } from '/@/api/sys/oauthProvider';
+  import { UpdateFileInfo } from '/@/api/fms/file';
 
   export default defineComponent({
-    name: 'OauthDrawer',
+    name: 'FileDrawer',
     components: { BasicDrawer, BasicForm },
     emits: ['success', 'register'],
     setup(_, { emit }) {
@@ -48,21 +47,19 @@
       });
 
       const getTitle = computed(() =>
-        !unref(isUpdate) ? t('sys.oauth.addProvider') : t('sys.oauth.editProvider'),
+        !unref(isUpdate) ? t('fms.file.addFile') : t('fms.file.editFile'),
       );
 
       async function handleSubmit() {
-        const values = await validate();
-        setDrawerProps({ confirmLoading: true });
-        values['id'] = unref(isUpdate) ? Number(values['id']) : 0;
-        let result = unref(isUpdate)
-          ? await updateOauthProvider(values)
-          : await createOauthProvider(values);
-        if (result.code === 0) {
+        try {
+          const values = await validate();
+          setDrawerProps({ confirmLoading: true });
+          await UpdateFileInfo(values);
           closeDrawer();
           emit('success');
+        } finally {
+          setDrawerProps({ confirmLoading: false });
         }
-        setDrawerProps({ confirmLoading: false });
       }
 
       return {

@@ -1,7 +1,7 @@
 import { BasicColumn, FormSchema } from '/@/components/Table';
 import { useI18n } from '/@/hooks/web/useI18n';
 import { formatToDateTime } from '/@/utils/dateUtil';
-import { updateToken } from '/@/api/sys/token';
+import { updateTag } from '/@/api/fms/tag';
 import { Switch } from 'ant-design-vue';
 import { h } from 'vue';
 
@@ -9,24 +9,19 @@ const { t } = useI18n();
 
 export const columns: BasicColumn[] = [
   {
-    title: 'UUID',
-    dataIndex: 'id',
-    width: 80,
+    title: t('fms.tag.name'),
+    dataIndex: 'name',
+    width: 100,
   },
   {
-    title: 'Token',
-    dataIndex: 'token',
-    width: 50,
-  },
-  {
-    title: t('common.source'),
-    dataIndex: 'source',
-    width: 50,
+    title: t('fms.tag.remark'),
+    dataIndex: 'remark',
+    width: 100,
   },
   {
     title: t('common.status'),
     dataIndex: 'status',
-    width: 40,
+    width: 50,
     customRender: ({ record }) => {
       if (!Reflect.has(record, 'pendingStatus')) {
         record.pendingStatus = false;
@@ -39,7 +34,7 @@ export const columns: BasicColumn[] = [
         onChange(checked, _) {
           record.pendingStatus = true;
           const newStatus = checked ? 1 : 2;
-          updateToken({ id: record.id, status: newStatus })
+          updateTag({ id: record.id, status: newStatus })
             .then(() => {
               record.status = newStatus;
             })
@@ -53,48 +48,57 @@ export const columns: BasicColumn[] = [
   {
     title: t('common.createTime'),
     dataIndex: 'createdAt',
-    width: 50,
+    width: 70,
     customRender: ({ record }) => {
       return formatToDateTime(record.createdAt);
-    },
-  },
-  {
-    title: t('common.expiredAt'),
-    dataIndex: 'expiredAt',
-    width: 50,
-    customRender: ({ record }) => {
-      return formatToDateTime(record.expiredAt);
     },
   },
 ];
 
 export const searchFormSchema: FormSchema[] = [
   {
-    field: 'UUID',
-    label: 'UUID',
+    field: 'name',
+    label: t('fms.tag.name'),
     component: 'Input',
     colProps: { span: 8 },
-    rules: [{ max: 30 }],
   },
   {
-    field: 'username',
-    label: t('sys.login.username'),
+    field: 'remark',
+    label: t('fms.tag.remark'),
     component: 'Input',
     colProps: { span: 8 },
-    rules: [{ max: 30 }],
+  },
+];
+
+export const formSchema: FormSchema[] = [
+  {
+    field: 'id',
+    label: 'ID',
+    component: 'Input',
+    show: false,
+  },
+
+  {
+    field: 'name',
+    label: t('fms.tag.name'),
+    component: 'Input',
+    required: true,
   },
   {
-    field: 'email',
-    label: t('sys.login.email'),
+    field: 'remark',
+    label: t('fms.tag.remark'),
     component: 'Input',
-    colProps: { span: 8 },
-    rules: [{ max: 50 }],
   },
   {
-    field: 'nickname',
-    label: t('sys.user.nickname'),
-    component: 'Input',
-    colProps: { span: 8 },
-    rules: [{ max: 20 }],
+    field: 'status',
+    label: t('fms.tag.status'),
+    component: 'RadioButtonGroup',
+    defaultValue: 1,
+    componentProps: {
+      options: [
+        { label: t('common.on'), value: 1 },
+        { label: t('common.off'), value: 2 },
+      ],
+    },
   },
 ];
