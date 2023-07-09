@@ -91,14 +91,26 @@ export const formSchema: FormSchema[] = [
   {
     field: 'level',
     label: t('iu.diagnosisType.level'),
-    component: 'InputNumber',
-    required: true,
+    colProps: {
+      span: 23,
+    },
+    component: 'Slider',
+    defaultValue: 0,
+    componentProps: {
+      min: 0,
+      max: 10,
+      marks: {
+        0: '等级0',
+        5: '等级5',
+        10: '等级10',
+      },
+    },
   },
   {
     field: 'description',
     label: t('iu.diagnosisType.description'),
     component: 'Input',
-    required: true,
+    // required: true,
   },
   {
     field: 'status',

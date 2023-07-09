@@ -11,6 +11,9 @@
         <a-button type="primary" @click="handleCreate">
           {{ t('iu.patient.addPatient') }}
         </a-button>
+        <a-button type="success" @click="">
+          {{ t('iu.patient.import') }}
+        </a-button>
       </template>
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'cardType'">

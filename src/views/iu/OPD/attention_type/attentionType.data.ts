@@ -96,36 +96,76 @@ export const formSchema: FormSchema[] = [
     label: t('iu.attentionType.name'),
     component: 'Input',
     required: true,
+    colProps: {
+      span: 24,
+    },
   },
   {
     field: 'level',
     label: t('iu.attentionType.level'),
-    component: 'InputNumber',
-    required: true,
+    colProps: {
+      span: 23,
+    },
+    component: 'Slider',
+    defaultValue: 0,
+    componentProps: {
+      min: 0,
+      max: 10,
+      marks: {
+        0: '等级0',
+        5: '等级5',
+        10: '等级10',
+      },
+    },
+    // required: true,
   },
   {
     field: 'isReferral',
     label: t('iu.attentionType.isReferral'),
-    component: 'InputNumber',
-    required: true,
+    defaultValue: 0,
+    component: 'RadioButtonGroup',
+    componentProps: {
+      options: [
+        { label: t('common.yes'), value: 1 },
+        { label: t('common.no'), value: 0 },
+      ],
+    },
   },
   {
     field: 'is120',
     label: t('iu.attentionType.is120'),
-    component: 'InputNumber',
-    required: true,
+    defaultValue: 0,
+    component: 'RadioButtonGroup',
+    componentProps: {
+      options: [
+        { label: t('common.yes'), value: 1 },
+        { label: t('common.no'), value: 0 },
+      ],
+    },
   },
   {
     field: 'isIsolation',
     label: t('iu.attentionType.isIsolation'),
-    component: 'InputNumber',
-    required: true,
+    defaultValue: 0,
+    component: 'RadioButtonGroup',
+    componentProps: {
+      options: [
+        { label: t('common.yes'), value: 1 },
+        { label: t('common.no'), value: 0 },
+      ],
+    },
   },
   {
     field: 'isObserve',
     label: t('iu.attentionType.isObserve'),
-    component: 'InputNumber',
-    required: true,
+    defaultValue: 0,
+    component: 'RadioButtonGroup',
+    componentProps: {
+      options: [
+        { label: t('common.yes'), value: 1 },
+        { label: t('common.no'), value: 0 },
+      ],
+    },
   },
   {
     field: 'status',

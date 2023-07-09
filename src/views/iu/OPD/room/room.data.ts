@@ -22,16 +22,16 @@ export const columns: BasicColumn[] = [
     dataIndex: 'description',
     width: 100,
   },
-  {
-    title: t('iu.room.deptName'),
-    dataIndex: 'deptName',
-    width: 100,
-  },
-  {
-    title: t('iu.room.deptKey'),
-    dataIndex: 'deptKey',
-    width: 100,
-  },
+  // {
+  //   title: t('iu.room.deptName'),
+  //   dataIndex: 'deptName',
+  //   width: 100,
+  // },
+  // {
+  //   title: t('iu.room.deptKey'),
+  //   dataIndex: 'deptKey',
+  //   width: 100,
+  // },
   {
     title: t('common.status'),
     dataIndex: 'status',
@@ -114,20 +114,19 @@ export const formSchema: FormSchema[] = [
     field: 'description',
     label: t('iu.room.description'),
     component: 'Input',
-    required: true,
   },
-  {
-    field: 'deptName',
-    label: t('iu.room.deptName'),
-    component: 'Input',
-    required: true,
-  },
-  {
-    field: 'deptKey',
-    label: t('iu.room.deptKey'),
-    component: 'InputNumber',
-    required: true,
-  },
+  // {
+  //   field: 'deptName',
+  //   label: t('iu.room.deptName'),
+  //   component: 'Input',
+  //   required: true,
+  // },
+  // {
+  //   field: 'deptKey',
+  //   label: t('iu.room.deptKey'),
+  //   component: 'InputNumber',
+  //   required: true,
+  // },
   {
     field: 'status',
     label: t('iu.room.status'),

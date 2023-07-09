@@ -348,7 +348,7 @@ export const formSchema: FormSchema[] = [
       mode:'tags',
       api: getDictionaryByName,
       params: {
-        name: 'Allergen',
+        name: 'MedicalHistory',
       },
       showSearch:true,
       resultField: 'data.data',
@@ -367,7 +367,7 @@ export const formSchema: FormSchema[] = [
       mode:'tags',
       api: getDictionaryByName,
       params: {
-        name: 'MedicalHistory',
+        name: 'Allergen',
       },
       showSearch:true,
       resultField: 'data.data',
